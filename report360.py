@@ -108,7 +108,7 @@ def print_xdbf(gpd):
             print "Locked Description: %s" % (ach.get_locked_desc())
             print "Unlocked Description: %s" % (ach.get_unlocked_desc())
         except UnicodeEncodeError:
-            print "Locked Description: %s" % (ach.locked_desc.replace('\x00', '')
+            print "Locked Description: %s" % (ach.locked_desc.replace('\x00', ''))
             print "Unlocked Description: %s" % (ach.get_unlocked_desc.replace('\x00', ''))
 
         print "Image ID: 0x%x" % ach.image_id
