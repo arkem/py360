@@ -1,0 +1,36 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module py360.xboxtime</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="py360.html"><font color="#ffffff">py360</font></a>.xboxtime</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/arkem/code/xbox360/code/py360/xboxtime.py">/home/arkem/code/xbox360/code/py360/xboxtime.py</a></font></td></tr></table>
+    <p><tt>Collection&nbsp;of&nbsp;functions&nbsp;to&nbsp;handle&nbsp;the&nbsp;various&nbsp;time&nbsp;formats&nbsp;that&nbsp;Xbox&nbsp;360s&nbsp;have</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="time.html">time</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-fat2unixtime"><strong>fat2unixtime</strong></a>(t, d)</dt><dd><tt>Turns&nbsp;date/time&nbsp;members&nbsp;from&nbsp;a&nbsp;FileRecord&nbsp;into&nbsp;unix&nbsp;time</tt></dd></dl>
+ <dl><dt><a name="-filetime2unixtime"><strong>filetime2unixtime</strong></a>(filetime)</dt><dd><tt>Convert&nbsp;GPD&nbsp;times&nbsp;to&nbsp;unix&nbsp;time&nbsp;(Windows&nbsp;File&nbsp;Times,&nbsp;100ms&nbsp;since&nbsp;1601)</tt></dd></dl>
+ <dl><dt><a name="-parse_fat_date"><strong>parse_fat_date</strong></a>(date)</dt><dd><tt>#Date:&nbsp;0-5&nbsp;Day&nbsp;of&nbsp;month,&nbsp;6-9&nbsp;month&nbsp;of&nbsp;year,&nbsp;10-15&nbsp;number&nbsp;of&nbsp;years&nbsp;(from&nbsp;1-1-1980)<br>
+#Turns&nbsp;out&nbsp;that&nbsp;it&nbsp;is&nbsp;bigendian&nbsp;and&nbsp;the&nbsp;least&nbsp;significant&nbsp;bit&nbsp;is&nbsp;0&nbsp;and&nbsp;the&nbsp;most&nbsp;significant&nbsp;bit<br>
+#&nbsp;'0b11001101110110'&nbsp;is&nbsp;(22,&nbsp;11,&nbsp;2005)</tt></dd></dl>
+ <dl><dt><a name="-parse_fat_time"><strong>parse_fat_time</strong></a>(time)</dt><dd><tt>#TODO:&nbsp;Millisecond&nbsp;accuracy,&nbsp;optional&nbsp;parameter?<br>
+#Time:&nbsp;0-4&nbsp;2&nbsp;second&nbsp;count&nbsp;(0-29&nbsp;==&nbsp;0-58&nbsp;seconds),&nbsp;5-10&nbsp;minutes,&nbsp;11-15&nbsp;hours</tt></dd></dl>
+</td></tr></table>
+</body></html>

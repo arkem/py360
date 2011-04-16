@@ -1,0 +1,167 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module py360.py360</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="py360.html"><font color="#ffffff">py360</font></a>.py360</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/arkem/code/xbox360/code/py360/py360.py">/home/arkem/code/xbox360/code/py360/py360.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;py360.py&nbsp;is&nbsp;the&nbsp;FUSE&nbsp;interface&nbsp;for&nbsp;XTAF&nbsp;Filesystems.<br>
+#&nbsp;To&nbsp;mount&nbsp;a&nbsp;filesystem&nbsp;run&nbsp;this&nbsp;file&nbsp;or&nbsp;the&nbsp;mount.py360&nbsp;shell&nbsp;script<br>
+#&nbsp;To&nbsp;programmatically&nbsp;interact&nbsp;with&nbsp;XTAF&nbsp;Filesystems&nbsp;check&nbsp;the&nbsp;partition&nbsp;module.<br>
+#<br>
+#&nbsp;FIXME:&nbsp;When&nbsp;running&nbsp;stfs.py&nbsp;against&nbsp;a&nbsp;mounted&nbsp;xtaf&nbsp;fs&nbsp;some&nbsp;blocks&nbsp;appear&nbsp;to&nbsp;be&nbsp;emtpy.<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;can&nbsp;be&nbsp;worked&nbsp;around&nbsp;by&nbsp;reading&nbsp;other&nbsp;blocks&nbsp;first&nbsp;(which&nbsp;is&nbsp;a&nbsp;bit&nbsp;weird)</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="errno.html">errno</a><br>
+<a href="fuse.html">fuse</a><br>
+</td><td width="25%" valign=top><a href="stat.html">stat</a><br>
+<a href="sys.html">sys</a><br>
+</td><td width="25%" valign=top><a href="time.html">time</a><br>
+<a href="py360.xboxtime.html">py360.xboxtime</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="fuse.html#Fuse">fuse.Fuse</a>(<a href="__builtin__.html#object">__builtin__.object</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="py360.py360.html#Py360">Py360</a>
+</font></dt></dl>
+</dd>
+<dt><font face="helvetica, arial"><a href="fuse.html#Stat">fuse.Stat</a>(<a href="fuse.html#FuseStruct">fuse.FuseStruct</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="py360.py360.html#MyStat">MyStat</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="MyStat">class <strong>MyStat</strong></a>(<a href="fuse.html#Stat">fuse.Stat</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>#&nbsp;<a href="fuse.html#Stat">Stat</a>&nbsp;class&nbsp;for&nbsp;file&nbsp;information<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="py360.py360.html#MyStat">MyStat</a></dd>
+<dd><a href="fuse.html#Stat">fuse.Stat</a></dd>
+<dd><a href="fuse.html#FuseStruct">fuse.FuseStruct</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="MyStat-__init__"><strong>__init__</strong></a>(self)</dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="fuse.html#FuseStruct">fuse.FuseStruct</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Py360">class <strong>Py360</strong></a>(<a href="fuse.html#Fuse">fuse.Fuse</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>#&nbsp;Main&nbsp;FUSE&nbsp;class<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="py360.py360.html#Py360">Py360</a></dd>
+<dd><a href="fuse.html#Fuse">fuse.Fuse</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="Py360-__init__"><strong>__init__</strong></a>(self, *args, **kw)</dt></dl>
+
+<dl><dt><a name="Py360-getattr"><strong>getattr</strong></a>(self, path)</dt></dl>
+
+<dl><dt><a name="Py360-read"><strong>read</strong></a>(self, path, size, offset)</dt></dl>
+
+<dl><dt><a name="Py360-readdir"><strong>readdir</strong></a>(self, path, offset)</dt></dl>
+
+<hr>
+Methods inherited from <a href="fuse.html#Fuse">fuse.Fuse</a>:<br>
+<dl><dt><a name="Py360-GetContext"><strong>GetContext</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="Py360-Invalidate"><strong>Invalidate</strong></a>(self, path)</dt></dl>
+
+<dl><dt><a name="Py360-__getattr__"><strong>__getattr__</strong></a>(self, meth)</dt></dl>
+
+<dl><dt><a name="Py360-__init_0_1__"><strong>__init_0_1__</strong></a>(self, *args, **kw)</dt></dl>
+
+<dl><dt><a name="Py360-getattr_compat_0_1"><strong>getattr_compat_0_1</strong></a>(self, *a)</dt></dl>
+
+<dl><dt><a name="Py360-lowwrap"><strong>lowwrap</strong></a>(self, fname)</dt><dd><tt>Wraps&nbsp;the&nbsp;fname&nbsp;method&nbsp;when&nbsp;the&nbsp;C&nbsp;code&nbsp;expects&nbsp;a&nbsp;different&nbsp;kind&nbsp;of<br>
+callback&nbsp;than&nbsp;we&nbsp;have&nbsp;in&nbsp;the&nbsp;fusepy&nbsp;API.&nbsp;(The&nbsp;wrapper&nbsp;is&nbsp;usually&nbsp;for<br>
+performing&nbsp;some&nbsp;checks&nbsp;or&nbsp;transfromations&nbsp;which&nbsp;could&nbsp;be&nbsp;done&nbsp;in&nbsp;C&nbsp;but<br>
+is&nbsp;simpler&nbsp;if&nbsp;done&nbsp;in&nbsp;Python.)<br>
+&nbsp;<br>
+Currently&nbsp;`open`&nbsp;and&nbsp;`create`&nbsp;are&nbsp;wrapped:&nbsp;a&nbsp;boolean&nbsp;flag&nbsp;is&nbsp;added<br>
+which&nbsp;indicates&nbsp;if&nbsp;the&nbsp;result&nbsp;is&nbsp;to&nbsp;be&nbsp;kept&nbsp;during&nbsp;the&nbsp;opened&nbsp;file's<br>
+lifetime&nbsp;or&nbsp;can&nbsp;be&nbsp;thrown&nbsp;away.&nbsp;Namely,&nbsp;it's&nbsp;considered&nbsp;disposable<br>
+if&nbsp;it's&nbsp;an&nbsp;instance&nbsp;of&nbsp;FuseFileInfo.</tt></dd></dl>
+
+<dl><dt><a name="Py360-main"><strong>main</strong></a>(self, args<font color="#909090">=None</font>)</dt><dd><tt>Enter&nbsp;filesystem&nbsp;service&nbsp;loop.</tt></dd></dl>
+
+<dl><dt><a name="Py360-main_0_1_preamble"><strong>main_0_1_preamble</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="Py360-parse"><strong>parse</strong></a>(self, *args, **kw)</dt><dd><tt>Parse&nbsp;command&nbsp;line,&nbsp;fill&nbsp;`fuse_args`&nbsp;attribute.</tt></dd></dl>
+
+<dl><dt><a name="Py360-readdir_compat_0_1"><strong>readdir_compat_0_1</strong></a>(self, path, offset, *fh)</dt></dl>
+
+<dl><dt><a name="Py360-statfs_compat_0_1"><strong>statfs_compat_0_1</strong></a>(self, *a)</dt></dl>
+
+<hr>
+Class methods inherited from <a href="fuse.html#Fuse">fuse.Fuse</a>:<br>
+<dl><dt><a name="Py360-fuseoptref"><strong>fuseoptref</strong></a>(cls)<font color="#909090"><font face="helvetica, arial"> from <a href="__builtin__.html#type">__builtin__.type</a></font></font></dt><dd><tt>Find&nbsp;out&nbsp;which&nbsp;options&nbsp;are&nbsp;recognized&nbsp;by&nbsp;the&nbsp;library.<br>
+Result&nbsp;is&nbsp;a&nbsp;`FuseArgs`&nbsp;instance&nbsp;with&nbsp;the&nbsp;list&nbsp;of&nbsp;supported<br>
+options,&nbsp;suitable&nbsp;for&nbsp;passing&nbsp;on&nbsp;to&nbsp;the&nbsp;`filter`&nbsp;method&nbsp;of<br>
+another&nbsp;`FuseArgs`&nbsp;instance.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="fuse.html#Fuse">fuse.Fuse</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="fuse.html#Fuse">fuse.Fuse</a>:<br>
+<dl><dt><strong>Methproxy</strong> = &lt;class 'fuse.Methproxy'&gt;</dl>
+
+<dl><dt><strong>compatmap</strong> = {'readdir': 'getdir'}</dl>
+
+<dl><dt><strong>fusage</strong> = '%prog [mountpoint] [options]'</dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-main"><strong>main</strong></a>()</dt></dl>
+</td></tr></table>
+</body></html>

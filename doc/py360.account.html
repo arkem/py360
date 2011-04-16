@@ -1,0 +1,82 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module py360.account</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="py360.html"><font color="#ffffff">py360</font></a>.account</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/arkem/code/xbox360/code/py360/account.py">/home/arkem/code/xbox360/code/py360/account.py</a></font></td></tr></table>
+    <p><tt>&nbsp;&nbsp;&nbsp;Module&nbsp;for&nbsp;processing&nbsp;encrypted&nbsp;<a href="#Account">Account</a>&nbsp;blocks<br>
+&nbsp;<br>
+From&nbsp;various&nbsp;xbox&nbsp;360&nbsp;forums&nbsp;and&nbsp;code&nbsp;examples&nbsp;(including&nbsp;DJ&nbsp;Shepherd's&nbsp;Le&nbsp;Fluffie)<br>
+Most&nbsp;of&nbsp;the&nbsp;offsets&nbsp;had&nbsp;to&nbsp;be&nbsp;adjusted&nbsp;which&nbsp;makes&nbsp;me&nbsp;wonder&nbsp;if&nbsp;there's&nbsp;a&nbsp;small&nbsp;problem&nbsp;in&nbsp;the&nbsp;decryption<br>
+&nbsp;<br>
+Decrypted&nbsp;Data<br>
+0x00:&nbsp;<a href="#Account">Account</a>&nbsp;flags?&nbsp;(5th&nbsp;bit&nbsp;is&nbsp;Live/Local&nbsp;<a href="#Account">Account</a>,&nbsp;4th&nbsp;bit&nbsp;is&nbsp;passcode&nbsp;enabled?)<br>
+0x01:&nbsp;Passcode&nbsp;4&nbsp;bytes&nbsp;(or&nbsp;at&nbsp;position&nbsp;0x38?)<br>
+0x10:&nbsp;GamerTag&nbsp;(utf-16-be,&nbsp;15&nbsp;characters)<br>
+0x30:&nbsp;XUID&nbsp;(8&nbsp;bytes)<br>
+0x3c:&nbsp;<a href="#Account">Account</a>&nbsp;type&nbsp;"PROD"&nbsp;or&nbsp;"PART"<br>
+0x39:&nbsp;Membership&nbsp;type&nbsp;1&nbsp;byte&nbsp;(0x30&nbsp;is&nbsp;Silver,&nbsp;0x60&nbsp;is&nbsp;Gold)<br>
+&nbsp;<br>
+Passcode<br>
+Null&nbsp;=&nbsp;0,&nbsp;Up&nbsp;=&nbsp;1,&nbsp;Down&nbsp;=&nbsp;2,&nbsp;Left&nbsp;=&nbsp;3,&nbsp;Right&nbsp;=&nbsp;4,&nbsp;X&nbsp;=&nbsp;5,&nbsp;Y&nbsp;=&nbsp;6,&nbsp;<br>
+Left&nbsp;Trigger&nbsp;=&nbsp;9,&nbsp;Right&nbsp;Trigger&nbsp;=&nbsp;0xA,&nbsp;Left&nbsp;Bumper&nbsp;=&nbsp;0xB,&nbsp;Right&nbsp;Bumper&nbsp;=&nbsp;0xC<br>
+Speculation:&nbsp;A&nbsp;=&nbsp;7,&nbsp;B&nbsp;=&nbsp;8</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="Crypto.Cipher.ARC4.html">Crypto.Cipher.ARC4</a><br>
+</td><td width="25%" valign=top><a href="hashlib.html">hashlib</a><br>
+</td><td width="25%" valign=top><a href="hmac.html">hmac</a><br>
+</td><td width="25%" valign=top><a href="struct.html">struct</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="__builtin__.html#object">__builtin__.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="py360.account.html#Account">Account</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Account">class <strong>Account</strong></a>(<a href="__builtin__.html#object">__builtin__.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#Account">Account</a>&nbsp;<a href="__builtin__.html#object">object</a>,&nbsp;decrypts&nbsp;the&nbsp;buf&nbsp;and&nbsp;populates&nbsp;its&nbsp;members<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Account-__init__"><strong>__init__</strong></a>(self, encrypted)</dt></dl>
+
+<dl><dt><a name="Account-__str__"><strong>__str__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="Account-decrypt"><strong>decrypt</strong></a>(self, data, key<font color="#909090">=None</font>)</dt></dl>
+
+<dl><dt><a name="Account-get_gamertag"><strong>get_gamertag</strong></a>(self)</dt><dd><tt>Return&nbsp;the&nbsp;gamertag&nbsp;name&nbsp;from&nbsp;this&nbsp;account&nbsp;block</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table>
+</body></html>

@@ -1,0 +1,53 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module py360.xboxmagic</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="py360.html"><font color="#ffffff">py360</font></a>.xboxmagic</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/arkem/code/xbox360/code/py360/xboxmagic.py">/home/arkem/code/xbox360/code/py360/xboxmagic.py</a></font></td></tr></table>
+    <p><tt>Functions&nbsp;for&nbsp;determining&nbsp;the&nbsp;file&nbsp;type&nbsp;of&nbsp;buf&nbsp;/&nbsp;file&nbsp;objects&nbsp;passed&nbsp;in.<br>
+Only&nbsp;handles&nbsp;Xbox&nbsp;360&nbsp;related&nbsp;file&nbsp;formats&nbsp;and&nbsp;PNG<br>
+Returns&nbsp;a&nbsp;string&nbsp;denoting&nbsp;file&nbsp;type</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="errno.html">errno</a><br>
+<a href="fuse.html">fuse</a><br>
+</td><td width="25%" valign=top><a href="stat.html">stat</a><br>
+<a href="sys.html">sys</a><br>
+</td><td width="25%" valign=top><a href="time.html">time</a><br>
+<a href="py360.xboxtime.html">py360.xboxtime</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-find_type"><strong>find_type</strong></a>(data<font color="#909090">=None</font>, fd<font color="#909090">=None</font>)</dt></dl>
+ <dl><dt><a name="-is_account"><strong>is_account</strong></a>(length)</dt></dl>
+ <dl><dt><a name="-is_png"><strong>is_png</strong></a>(data)</dt></dl>
+ <dl><dt><a name="-is_stfs"><strong>is_stfs</strong></a>(data)</dt></dl>
+ <dl><dt><a name="-is_xdbf"><strong>is_xdbf</strong></a>(data)</dt></dl>
+ <dl><dt><a name="-is_xtaf"><strong>is_xtaf</strong></a>(data)</dt></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>ACCOUNT_SIZE</strong> = 404<br>
+<strong>PNG_HEADER</strong> = '<font color="#c040c0">\x89</font>PNG<font color="#c040c0">\r\n\x1a\n</font>'<br>
+<strong>STFS_HEADERS</strong> = ('CON ', 'PIRS', 'LIVE')<br>
+<strong>XDBF_HEADER</strong> = 'XDBF'<br>
+<strong>XTAF_HEADER</strong> = 'XTAF'</td></tr></table>
+</body></html>

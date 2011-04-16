@@ -1,0 +1,85 @@
+This is a FUSE filesystem driver and associated file parsers for reading Xbox 360 hard drives. It is designed to aid forensic examination of the filesystem. This would not have been possible without the existing work of the Free60 project as well as the existing x360 FUSE driver.
+
+Files:
+report360.py - Client application that creates representations of various Xbox 360 files
+py360.py - FUSE filesystem driver
+partition.py - Partition class for parsing XTAF files
+stfs.py - STFS class for parsing STFS files
+xdbf.py - XDBF class for parsing GPD/XDBF files
+constants.py - Various classes containing constants such as region code mappings
+account.py - Account class for decrypting/parsing Account files
+xboxmagic.py - Class for determining the type of Xbox 360 related files
+xboxtime.py - Functions for converting Xbox 360 time formats to unix time
+
+Chech the doc directory for python docs (or chech the source code itself).
+For an introduction to using report360.py and the py360 API see the user guide in doc.
+
+Known bugs:
+Occasional read errors with STFS when operating on an XTAF partition mounted with py360.py
+Occasional UnicodeEncodeError exceptions when printing unicode strings (a work around is used in report360.py)
+
+***QUICK START***
+python report360.py XTAFIMAGE.bin > output.txt
+
+
+A quick (incomplete) run down of package components:
+
+class Account
+Class that decrypts and parses the Account files found in dashboard profile files
+
+class STFS
+Overarching class for STFS files
+
+class FileListing
+Equivalent to Entry and FileRecord for STFS
+
+class BlockHashRecord
+Contains a block hash, the next block and the status of this block
+
+class XDBF
+Overarching class that processes a gpd file. It contains a list of entry and dicts containing all the Achievements, Titles, Settings, Images and Strings inside the gpd.
+
+class Entry
+Equivalent to the file record class but for gpd files. Contains id, offset, length and a link to a payload object.
+
+class Achievement
+Parses an Achievement entry and provides the name, gamer points and unlock time and description
+
+class Title
+Parses a Title entry and provides last played time and achievement statistics
+
+class Partition
+Overarching class that processes a disk image
+You provide it with a file object representing the disk image, a buffer representing the FAT table and an offset to the root directory. After initialisation the allfiles dict will have a fileobj or directory object for each file or directory and the rootfile member will have a directory object representing the root directory.
+
+class FileObj
+A class that contains a fat FileRecord and a list of clusters
+
+class Directory
+A file object that contains a dictionary of file objects for the contents of the directory.
+
+class FileRecord
+Object that represents the FAT file record of a file/directory. Barely more than a C struct.
+
+A quick note on endianess, the filesystem is big endian while all values in objects (except for the raw fat_data) will be in little endian.
+
+Partition.parse_directory()
+Starting with the provided directory (or the root directory by default) process all the directories on the disk to populate self.allfiles and the self.rootfile tree. Originally was recursive but now is iterative for memory/time savings.
+
+Partition.parse_file_records()
+Takes a buffer representing a cluster on disk and creates a list of FileRecord objects. This method deals with converting endianess of on disk structures. There may be changes to be made, currently we assume fnlength 0xE5 is deleted files and > 42 means end of directory while 0x00 is an error but not the end of the directory. 0x00 is ambiguous as it should mean that the file record slot is free but in practice I have not really seen it. This is one of the places that may require more error checking.
+
+Partition.get_clusters()
+Takes a FileRecord object and generates a list containing all the cluster numbers used by this file. 
+
+Partition.read_cluster()
+Given a cluster number returns a buffer with the cluster data. Takes an optional length and offset. 
+
+Partition.read_file()
+Given a filename or fileobj return a buffer that contains the whole file or the portions requested (with length and offset). Must set either filename or fileobj named parameters, fileobj takes precedent.
+
+Partition.get_file()
+Given a path return a fileobj. This used to walk the filesystem from the root directory but now just accesses self.allfiles
+
+open_image()
+Given a filename instatiates and returns a Partition object. Currently reads the fat and opens the image file (read only for obvious reasons). Doesn't exist any more refactored as part on the Partition __init__ method.

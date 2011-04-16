@@ -1,0 +1,207 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module py360.partition</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="py360.html"><font color="#ffffff">py360</font></a>.partition</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/arkem/code/xbox360/code/py360/partition.py">/home/arkem/code/xbox360/code/py360/partition.py</a></font></td></tr></table>
+    <p><tt>This&nbsp;module&nbsp;has&nbsp;the&nbsp;classes&nbsp;associated&nbsp;with&nbsp;parsing&nbsp;XTAF&nbsp;parititions<br>
+To&nbsp;use&nbsp;this&nbsp;class&nbsp;try&nbsp;something&nbsp;like:<br>
+from&nbsp;partition&nbsp;import&nbsp;*<br>
+xtafpart&nbsp;=&nbsp;<a href="#Partition">Partition</a>('/mnt/data/201010.bin')</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="mmap.html">mmap</a><br>
+</td><td width="25%" valign=top><a href="struct.html">struct</a><br>
+</td><td width="25%" valign=top><a href="sys.html">sys</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="__builtin__.html#object">__builtin__.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="py360.partition.html#FileObj">FileObj</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="py360.partition.html#Directory">Directory</a>
+</font></dt></dl>
+</dd>
+<dt><font face="helvetica, arial"><a href="py360.partition.html#FileRecord">FileRecord</a>
+</font></dt><dt><font face="helvetica, arial"><a href="py360.partition.html#Partition">Partition</a>
+</font></dt><dt><font face="helvetica, arial"><a href="py360.partition.html#XTAFFD">XTAFFD</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Directory">class <strong>Directory</strong></a>(<a href="py360.partition.html#FileObj">FileObj</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#Directory">Directory</a>&nbsp;is&nbsp;a&nbsp;<a href="#FileObj">FileObj</a>&nbsp;with&nbsp;a&nbsp;dict&nbsp;of&nbsp;<a href="#FileObj">FileObj</a><br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="py360.partition.html#Directory">Directory</a></dd>
+<dd><a href="py360.partition.html#FileObj">FileObj</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="Directory-__init__"><strong>__init__</strong></a>(self, fr, clusters)</dt></dl>
+
+<dl><dt><a name="Directory-__str__"><strong>__str__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="Directory-isDirectory"><strong>isDirectory</strong></a>(self)</dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="py360.partition.html#FileObj">FileObj</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="FileObj">class <strong>FileObj</strong></a>(<a href="__builtin__.html#object">__builtin__.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#FileObj">FileObj</a>&nbsp;is&nbsp;a&nbsp;container&nbsp;with&nbsp;a&nbsp;<a href="#FileRecord">FileRecord</a>&nbsp;and&nbsp;a&nbsp;list&nbsp;of&nbsp;clusters<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="FileObj-__init__"><strong>__init__</strong></a>(self, fr, clusters)</dt></dl>
+
+<dl><dt><a name="FileObj-__str__"><strong>__str__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="FileObj-isDirectory"><strong>isDirectory</strong></a>(self)</dt></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="FileRecord">class <strong>FileRecord</strong></a>(<a href="__builtin__.html#object">__builtin__.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#FileRecord">FileRecord</a>&nbsp;is&nbsp;straight&nbsp;off&nbsp;of&nbsp;the&nbsp;disk&nbsp;(but&nbsp;with&nbsp;everything&nbsp;in&nbsp;host&nbsp;byte&nbsp;order)<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="FileRecord-__init__"><strong>__init__</strong></a>(self, **kwargs)</dt></dl>
+
+<dl><dt><a name="FileRecord-__str__"><strong>__str__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="FileRecord-isDirectory"><strong>isDirectory</strong></a>(self)</dt></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Partition">class <strong>Partition</strong></a>(<a href="__builtin__.html#object">__builtin__.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Main&nbsp;class&nbsp;representing&nbsp;the&nbsp;partition<br>
+The&nbsp;allfiles&nbsp;member&nbsp;has&nbsp;a&nbsp;dictionary&nbsp;of&nbsp;all&nbsp;the&nbsp;files&nbsp;in&nbsp;the&nbsp;partition<br>
+The&nbsp;rootfile&nbsp;member&nbsp;contains&nbsp;a&nbsp;directory&nbsp;<a href="__builtin__.html#object">object</a>&nbsp;that&nbsp;represents&nbsp;the&nbsp;root&nbsp;directory<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Partition-__init__"><strong>__init__</strong></a>(self, filename, threadsafe<font color="#909090">=False</font>)</dt></dl>
+
+<dl><dt><a name="Partition-__str__"><strong>__str__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="Partition-get_clusters"><strong>get_clusters</strong></a>(self, fr)</dt><dd><tt>Builds&nbsp;a&nbsp;list&nbsp;of&nbsp;the&nbsp;clusters&nbsp;a&nbsp;file&nbsp;hash&nbsp;by&nbsp;parsing&nbsp;the&nbsp;FAT</tt></dd></dl>
+
+<dl><dt><a name="Partition-get_file"><strong>get_file</strong></a>(self, filename)</dt><dd><tt>Returns&nbsp;a&nbsp;fileobj&nbsp;from&nbsp;a&nbsp;filename.&nbsp;Same&nbsp;as&nbsp;self.<strong>allfiles</strong>[filename]&nbsp;now.</tt></dd></dl>
+
+<dl><dt><a name="Partition-open_fd"><strong>open_fd</strong></a>(self, filename)</dt><dd><tt>Return&nbsp;an&nbsp;<a href="#XTAFFD">XTAFFD</a>&nbsp;<a href="__builtin__.html#object">object</a>&nbsp;for&nbsp;a&nbsp;file</tt></dd></dl>
+
+<dl><dt><a name="Partition-parse_directory"><strong>parse_directory</strong></a>(self, directory<font color="#909090">=None</font>)</dt><dd><tt>Populates&nbsp;the&nbsp;allfile&nbsp;dict&nbsp;and&nbsp;parses&nbsp;all&nbsp;the&nbsp;directories&nbsp;/&nbsp;file&nbsp;records&nbsp;of&nbsp;the&nbsp;partition</tt></dd></dl>
+
+<dl><dt><a name="Partition-parse_file_records"><strong>parse_file_records</strong></a>(self, data)</dt><dd><tt>While&nbsp;not&nbsp;end&nbsp;of&nbsp;file&nbsp;records<br>
+Create&nbsp;a&nbsp;file&nbsp;record&nbsp;<a href="__builtin__.html#object">object</a><br>
+Return&nbsp;list&nbsp;of&nbsp;file&nbsp;records<br>
+Date&nbsp;format:</tt></dd></dl>
+
+<dl><dt><a name="Partition-read_cluster"><strong>read_cluster</strong></a>(self, cluster, length<font color="#909090">=16384</font>, offset<font color="#909090">=0L</font>)</dt><dd><tt>Given&nbsp;a&nbsp;cluster&nbsp;number&nbsp;returns&nbsp;that&nbsp;cluster</tt></dd></dl>
+
+<dl><dt><a name="Partition-read_file"><strong>read_file</strong></a>(self, filename<font color="#909090">=None</font>, fileobj<font color="#909090">=None</font>, size<font color="#909090">=-1</font>, offset<font color="#909090">=0</font>)</dt><dd><tt>Reads&nbsp;an&nbsp;entire&nbsp;file&nbsp;given&nbsp;a&nbsp;filename&nbsp;or&nbsp;fileobj</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="XTAFFD">class <strong>XTAFFD</strong></a>(<a href="__builtin__.html#object">__builtin__.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>A&nbsp;File-like&nbsp;<a href="__builtin__.html#object">object</a>&nbsp;for&nbsp;representing&nbsp;FileObjs<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="XTAFFD-__init__"><strong>__init__</strong></a>(self, partition, fileobj)</dt></dl>
+
+<dl><dt><a name="XTAFFD-read"><strong>read</strong></a>(self, length<font color="#909090">=-1</font>)</dt></dl>
+
+<dl><dt><a name="XTAFFD-seek"><strong>seek</strong></a>(self, offset, whence<font color="#909090">=0</font>)</dt></dl>
+
+<dl><dt><a name="XTAFFD-tell"><strong>tell</strong></a>(self)</dt></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-Lock"><strong>Lock</strong></a> = allocate_lock(...)</dt><dd><tt>allocate_lock()&nbsp;-&gt;&nbsp;lock&nbsp;<a href="__builtin__.html#object">object</a><br>
+(allocate()&nbsp;is&nbsp;an&nbsp;obsolete&nbsp;synonym)<br>
+&nbsp;<br>
+Create&nbsp;a&nbsp;new&nbsp;lock&nbsp;<a href="__builtin__.html#object">object</a>.&nbsp;&nbsp;See&nbsp;LockType.__doc__&nbsp;for&nbsp;information&nbsp;about&nbsp;locks.</tt></dd></dl>
+ <dl><dt><a name="-StringIO"><strong>StringIO</strong></a>(...)</dt><dd><tt><a href="#-StringIO">StringIO</a>([s])&nbsp;--&nbsp;Return&nbsp;a&nbsp;StringIO-like&nbsp;stream&nbsp;for&nbsp;reading&nbsp;or&nbsp;writing</tt></dd></dl>
+</td></tr></table>
+</body></html>

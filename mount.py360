@@ -1,0 +1,2 @@
+#!/bin/bash
+python py360/py360.py $1 $2 -d -s -o uid=`(id -u)`,gid=`(id -g)`,fsname=XTAF
