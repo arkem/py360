@@ -144,8 +144,11 @@ class Partition(object):
             if self.threadsafe:
                 self.lock.acquire() 
 
-            self.fd.seek(diskoffset)
-            buf = self.fd.read(length)
+            try:
+                self.fd.seek(diskoffset)
+                buf = self.fd.read(length)
+            except IOError:
+                buf = ""
 
             if self.threadsafe:
                 self.lock.release()
