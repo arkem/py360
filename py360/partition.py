@@ -13,6 +13,7 @@ import struct
 from threading import Lock
 from cStringIO import StringIO
 
+# TODO: Optional thread safety
 class XTAFFD(object):
     """ A File-like object for representing FileObjs """
     def __init__(self, partition, fileobj):
@@ -29,9 +30,9 @@ class XTAFFD(object):
         if whence == 0:
             self.pointer = offset
         if whence == 1:
-            self.pointer = self.pointer
+            self.pointer = self.pointer + offset
         if whence == 2:
-            self.pointer = self.fileobj.fr.fsize
+            self.pointer = self.fileobj.fr.fsize - offset
 
         if self.pointer > self.fileobj.fr.fsize:
             self.pointer = self.fileobj.fr.fsize
@@ -180,6 +181,8 @@ class Partition(object):
             buf.write(self.read_cluster(fileobj.clusters[clusters_to_skip], readlen, offset))
             size -= readlen
             for cl in fileobj.clusters[clusters_to_skip+1:]:
+                if size <= 0:
+                    break # If we're finished, stop reading clusters
                 readlen = min(0x4000, size)
                 buf.write(self.read_cluster(cl, readlen, 0))
                 size -= readlen

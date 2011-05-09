@@ -109,7 +109,9 @@ def print_xdbf(gpd):
             print "Unlocked Description: %s" % (ach.get_unlocked_desc())
         except UnicodeEncodeError:
             print "Locked Description: %s" % (ach.locked_desc.replace('\x00', ''))
-            print "Unlocked Description: %s" % (ach.get_unlocked_desc.replace('\x00', ''))
+            print "Unlocked Description: %s" % (ach.unlocked_desc.replace('\x00', ''))
+            #print "Locked Description: %s" % "".join([x for x in ach.get_locked_desc() if x >= 0x20 and x < 0x7F])
+            #print "Unlocked Description: %s" % "".join([x for x in ach.get_unlocked_desc() if x >= 0x20 and x < 0x7F])
 
         print "Image ID: 0x%x" % ach.image_id
         print "Gamerscore: %d" % ach.gamer_score

@@ -2,6 +2,7 @@ This is a FUSE filesystem driver and associated file parsers for reading Xbox 36
 
 Files:
 report360.py - Client application that creates representations of various Xbox 360 files
+gamertags.py - An example client that prints out the GamerTags that are present on a drive
 py360.py - FUSE filesystem driver
 partition.py - Partition class for parsing XTAF files
 stfs.py - STFS class for parsing STFS files

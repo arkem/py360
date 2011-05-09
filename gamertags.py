@@ -20,17 +20,20 @@ part = partition.Partition(sys.argv[1])
 # Second, find profile STFS containers
 for directory in part.allfiles['/Content'].files:
     if len(directory) == 16 and directory[0] == 'E':
-        # Open each STFS container and look for the Account block
-        
-        # The STFS class can take either an actual file or a file-like object,
-        # we're using an file-like object to avoid having to use a temp file.
-        path = '/Content/%s/FFFE07D1/00010000/%s' % (directory, directory)
+        try:
+            # Open each STFS container and look for the Account block
+            
+            # The STFS class can take either an actual file or a file-like object,
+            # we're using an file-like object to avoid having to use a temp file.
+            path = '/Content/%s/FFFE07D1/00010000/%s' % (directory, directory)
 
-        # This test is to exclude deleted profiles and defunct directories
-        if path in part.allfiles:
-            profile = stfs.STFS(filename = None, fd = part.open_fd(path))
+            # This test is to exclude deleted profiles and defunct directories
+            if path in part.allfiles:
+                profile = stfs.STFS(filename = None, fd = part.open_fd(path))
 
-            # The account block is always at /Account in the STFS archive
-            # we'll read it in, decode it and then print out the gamertag
-            acc = account.Account(profile.read_file(profile.allfiles['/Account']))
-            print "Gamertag: %s, Type: %s" % (acc.get_gamertag(), acc.live_type)
+                # The account block is always at /Account in the STFS archive
+                # we'll read it in, decode it and then print out the gamertag
+                acc = account.Account(profile.read_file(profile.allfiles['/Account']))
+                print "Gamertag: %s, Type: %s" % (acc.get_gamertag(), acc.live_type)
+        except (AssertionError, IOError):
+            print "Error reading: %s" % directory # If something breaks we just skip it

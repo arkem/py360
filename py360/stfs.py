@@ -64,23 +64,41 @@ class STFS(object):
             self.fd = fd
         data = self.fd.read(4)
         assert data in ("CON ", "PIRS", "LIVE"), "STFS Magic not found"
+
+        self.table_spacing = [(0xAB, 0x718F, 0xFE7DA), #The distance in blocks between tables
+                              (0xAC, 0x723A, 0xFD00B)] #For when tables are 1 block and when they are 2 blocks
         self.magic = data
         self.fd.seek(0)
         self.data = self.fd.read(0x971A) # Header data (this is only a member during testing)
         self.parse_header(self.data)
         self.parse_filetable()
 
-        self.table_spacing = [(0xAB, 0x718F, 0xFE7DA), #The distance in blocks between tables
-                              (0xAC, 0x723A, 0xFD00B)] #For when tables are 1 block and when they are 2 blocks
 
+    def read_filetable(self, firstblock, numblocks):
+        """ Given the length and start of the filetable return all its data
+        """
+        buf = StringIO()
+        info = 0x80
+        block = firstblock
+        for i in xrange(0, numblocks):
+            buf.write(self.read_block(self.fix_blocknum(block), 0x1000))
+            blockhash = self.get_blockhash(block)
+            if self.table_size_shift > 0 and blockhash.info < 0x80:
+                blockhash = self.get_blockhash(block, 1)
+            block = blockhash.nextblock
+            info = blockhash.info
+        return buf.getvalue()
+    
     def parse_filetable(self):
         """ Generate objects for all the filelistings """
         data = StringIO()
         self.filelistings = []
         self.allfiles = {}
-        for x in range(0, self.filetable_blockcount):
-            data.write(self.read_block(self.filetable_blocknumber + x))
-        data = data.getvalue()
+        #for x in range(0, self.filetable_blockcount):
+        #    data.write(self.read_block(self.filetable_blocknumber + x))
+        #data = data.getvalue()
+        data = self.read_filetable(self.filetable_blocknumber, self.filetable_blockcount)
+
         for x in range(0, len(data), 0x40): # File records are 0x40 length
             try:
                 self.filelistings.append(FileListing(data[x:x+0x40]))
@@ -207,7 +225,7 @@ class STFS(object):
         self.disc_in_set = ord(data[0x367:0x368])
         self.save_game_id = struct.unpack(">I", data[0x368:0x368+4])[0]
         if self.magic == "CON ":
-            assert self.console_id == data[0x36C:0x36C+5], "CON Console ID verification failed" 
+            #assert self.console_id == data[0x36C:0x36C+5], "CON Console ID verification failed" 
             pass
         else:
             self.console_id = data[0x36C:0x36C+5]
@@ -254,11 +272,10 @@ class STFS(object):
 
 
 def extract_all(argv):
-    if len(argv) < 2:
+    if len(argv) < 3:
         print "Usage: stfs.py <input file> <output directory>"
         print "Dumps contents of stfs file to disk"
         return
-
     s = STFS(argv[1])
     for filename in s.allfiles: # Loop once creating all the directories
         if s.allfiles[filename].isdirectory:
@@ -273,8 +290,11 @@ def extract_all(argv):
     for filename in s.allfiles: # Loop again writing all the files
         if not s.allfiles[filename].isdirectory:
             print "Writing file %s" % filename
-            open("%s/%s" % (argv[2], filename), 'w').write(s.read_file(s.allfiles[filename]))
-
+            try:
+                open("%s/%s" % (argv[2], filename), 'w').write(s.read_file(s.allfiles[filename]))
+            except Exception as e:
+                print e
+                print argv[2], filename
 
 if __name__ == '__main__':
     import sys

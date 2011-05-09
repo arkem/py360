@@ -5,7 +5,7 @@
  Most of the offsets had to be adjusted which makes me wonder if there's a small problem in the decryption
 
  Decrypted Data
- 0x00: Account flags? (5th bit is Live/Local Account, 4th bit is passcode enabled?)
+ 0x00: Account flags? (5th bit is Live/Local Account (possibly), 4th bit is passcode enabled?)
  0x01: Passcode 4 bytes (or at position 0x38?)
  0x10: GamerTag (utf-16-be, 15 characters)
  0x30: XUID (8 bytes)
@@ -25,7 +25,7 @@ from Crypto.Cipher import ARC4
 class Account(object):
     """ Account object, decrypts the buf and populates its members """
     def __str__(self):
-        return "Xbox 360 Account: %s" % self.get_gamertag()
+        return "Xbox 360 Account: %s, type: %s" % (self.get_gamertag(), self.live_type)
 
     def __init__(self, encrypted):
         self.key = ["\xE1\xBC\x15\x9C\x73\xB1\xEA\xE9\xAB\x31\x70\xF3\xAD\x47\xEB\xF3", # PROD KEY
@@ -58,7 +58,7 @@ class Account(object):
         elif live_type == 0x60:
             self.live_type = "Gold (Paid)"
         else:
-            self.live_type = None
+            self.live_type = "Offline"
 
         self.console_type = self.data[0x3c:0x40]
         
