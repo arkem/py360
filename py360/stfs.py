@@ -245,7 +245,7 @@ class STFS(object):
         
         self.display_name = data[0x411:0x411+0x80] # First locale
         self.display_name_blob = data[0x411:0x411+0x900] # All locales
-        self.display_description = data[0xD11:0xD11+0x80]
+        self.display_description = data[0xD11:0xD11+0x80] # This offset might be wrong, 1 desc got truncated 
         self.display_description_blob = data[0xD11:0xD11+0x900]
         self.publisher_name = data[0x1611:0x1611+0x80]
         self.title_name = data[0x1691:0x1691+0x80]

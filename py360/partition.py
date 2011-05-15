@@ -219,9 +219,10 @@ class Partition(object):
         return clusters
 
     def open_fd(self, filename):
+        f = self.get_file(filename)
         """ Return an XTAFFD object for a file """
-        if filename in self.allfiles:
-            return XTAFFD(self, self.allfiles[filename])
+        if f != None:
+            return XTAFFD(self, f)
         else:
             return None
 
