@@ -99,7 +99,7 @@ class Partition(object):
     def __str__(self):
         return "XTAF Partition: %s" % self.filename
 
-    def __init__(self, filename, threadsafe=False):
+    def __init__(self, filename, threadsafe=False, precache=False):
         self.filename = filename
         self.threadsafe = threadsafe
         self.SIZE_OF_FAT_ENTRIES = 4
@@ -135,7 +135,8 @@ class Partition(object):
         self.fat_data = fatdata # <- FAT is in BIG ENDIAN
         self.allfiles = {}
         self.lock = Lock()
-        self.rootfile = self.parse_directory()
+        #self.rootfile = self.parse_directory()
+        self.rootfile = self.init_root_directory(recurse = precache)
 
     def read_cluster(self, cluster, length=0x4000, offset=0L):
         """ Given a cluster number returns that cluster """
@@ -157,6 +158,7 @@ class Partition(object):
         else:
             return ""
 
+    #TODO: Refactor into something smaller
     def read_file(self, filename=None, fileobj=None, size=-1, offset=0):
         """ Reads an entire file given a filename or fileobj """
         #TODO: Error checking
@@ -169,9 +171,11 @@ class Partition(object):
             else:
                 size = fileobj.fr.fsize # Read the whole file (skip the slack space)
 
-        if len(fileobj.clusters) == 0:
-            print "Reading empty file"
-            return ""
+        if len(fileobj.clusters) == 0: # Initialise cluster list if necessary
+            fileobj.clusters = self.get_clusters(fileobj.fr)
+            if len(fileobj.clusters) == 0: # Check the return of get_clusters
+                print "Reading Empty File"
+                return ""
 
         clusters_to_skip = offset // 0x4000
         offset %= 0x4000
@@ -264,35 +268,89 @@ class Partition(object):
 
         return file_records
 
+
+    def walk(self, path = '/'):
+        """ A generator that will return every fileobj on a system below path.
+            This is designed to be used instead of iterating over self.allfiles. 
+            self.allfiles can still be used if the partition is created with precache = True
+            Using this will eliminate much of the advantage of precache = False.
+            The only remaining speedup will be the lazy caching of file cluster lists
+        """
+        f = self.get_file(path)
+        if f == None or not f.isDirectory():
+            return
+        files = [f]
+
+        while len(files) > 0:
+            f = files.pop(0)
+            if f.isDirectory():
+                if not f.root and len(f.clusters) == 0:
+                    f = self.parse_directory(f) 
+                files = files + f.files.values()
+            yield f.fullpath
+
+        return 
+
+            
+
+
     def get_file(self, filename):
-        """ Returns a fileobj from a filename. Same as self.allfiles[filename] now. """
-        # This code is redundant with the addition of the allfiles dict
-        #file_components = filename.split("/")
-        #currentfile = self.rootfile
-        #try:
-        #    for component in file_components:
-        #        currentfile = currentfile.files[component]
-        #    return currentfile
-        try:
-            return self.allfiles[filename]
-        except KeyError:
-            return None
+        """ Returns a fileobj from a filename. 
+            Checks allfiles and if it isn't present starts walking the allfiles directory.
+            Not the same as self.allfiles[filename] anymore. """
+        if filename in self.allfiles: 
+            currentfile = self.allfiles[filename]
+            if currentfile.isDirectory() and not currentfile.root and len(currentfile.clusters) == 0:
+                # If we're asked for a directory, initialise it before returning
+                currentfile = self.parse_directory(currentfile) 
+            return currentfile # A previously accessed file
+        else:
+            return self.walk_for_file(filename)
+
+    def walk_for_file(self, filename):
+        """ Walks the file system parsing directories where necessary looking for a fileobj """
+        # Parse subdirectories looking for the requested file
+        file_components = filename[1:].split("/") # Skip first slash
+        currentfile = self.rootfile
+        for component in file_components:
+            #print "f:%s\t c:%s\t" % (filename, component),  currentfile, self.rootfile
+            if currentfile == None:
+                break
+            # If this is a directory (that isn't root) and it has no clusters listed, try to initialise it
+            if currentfile.isDirectory() and not currentfile.root and len(currentfile.clusters) == 0:
+                currentfile = self.parse_directory(currentfile)
+            try:
+                currentfile = currentfile.files[component]
+            except KeyError:
+                currentfile = None
+
+        if currentfile != None and currentfile.isDirectory():
+            print "Initialising: %s" % filename
+            currentfile = self.parse_directory(currentfile) # If we're asked for a directory, initialise it before returning
+
+        return currentfile
+
+
+    def init_root_directory(self, recurse = False):
+        """ Creates the root directory object and calls parse_directory on it """
+        directory = Directory(None, [self.root_dir_cluster])
+        directory.root = True
+        directory.fullpath = '/'
+        self.allfiles[directory.fullpath] = directory
+        directory = self.parse_directory(directory, recurse = recurse)
+        return directory 
 
     #TODO: Refactor this to something smaller
-    def parse_directory(self, directory = None):
-        """ Populates the allfile dict and parses all the directories / file records of the partition """
-        self.allfiles = {}
+    def parse_directory(self, directory = None, recurse = False):
+        """ Parses a single directory, optionally it can recurse into subdirectories.
+            It populates the allfile dict and parses the directories and file records of the directory """
         dirs_to_process = []
-        if directory == None: # If this is the root directory
-            directory = Directory(None, [self.root_dir_cluster])
-            directory.root = True
-            directory.fullpath = '/'
-            self.allfiles[directory.fullpath] = directory
-            #directory_data = self.read_cluster(self.root_dir_cluster)
-            dirs_to_process.append(directory)
+        if directory == None:
+            return None
         else:
             dirs_to_process.append(directory)
 
+        # For each directory to process (will be only one unless recurse is True)
         while len(dirs_to_process) > 0:
             d = dirs_to_process.pop(0)
             if d.root:
@@ -300,13 +358,15 @@ class Partition(object):
             else:
                 directory_data = self.read_file(fileobj = d)
 
+            # Parse the file records returned and optionally requeue subdirectories
             file_records = self.parse_file_records(directory_data)
             for fr in file_records:
                 if fr.isDirectory():
-                    d.files[fr.filename] = Directory(fr, self.get_clusters(fr))
-                    dirs_to_process.append(d.files[fr.filename])
+                    d.files[fr.filename] = Directory(fr, [])
+                    if recurse:
+                        dirs_to_process.append(d.files[fr.filename])
                 else:
-                    d.files[fr.filename] = FileObj(fr, self.get_clusters(fr))
+                    d.files[fr.filename] = FileObj(fr, [])
                 if d.root:
                     d.files[fr.filename].fullpath = d.fullpath + fr.filename
                 else:

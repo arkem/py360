@@ -18,7 +18,12 @@ import sys
 part = partition.Partition(sys.argv[1])
 
 # Second, find profile STFS containers
-for directory in part.allfiles['/Content'].files:
+content = part.get_file('/Content')
+if content == None:
+    print "Error getting content directory"
+    sys.exit(1) # Error condition
+
+for directory in content.files:
     if len(directory) == 16 and directory[0] == 'E':
         try:
             # Open each STFS container and look for the Account block
@@ -28,7 +33,7 @@ for directory in part.allfiles['/Content'].files:
             path = '/Content/%s/FFFE07D1/00010000/%s' % (directory, directory)
 
             # This test is to exclude deleted profiles and defunct directories
-            if path in part.allfiles:
+            if None != part.get_file(path):
                 profile = stfs.STFS(filename = None, fd = part.open_fd(path))
 
                 # The account block is always at /Account in the STFS archive

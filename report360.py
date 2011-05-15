@@ -29,8 +29,9 @@ def print_xtaf(part):
     print part
     print "*********************"
     print "\nFILE LISTING"
-    for filename in part.allfiles:
-        fi = part.allfiles[filename]
+    #for filename in part.allfiles:
+    for filename in part.walk():
+        fi = part.get_file(filename)
         if fi.fr:
             print "File: %s\t%d" % (filename, fi.fr.fsize)
             print "%s\t%s\t%s\n" % (time.ctime(xboxtime.fat2unixtime(fi.fr.mtime, fi.fr.mdate)),\
