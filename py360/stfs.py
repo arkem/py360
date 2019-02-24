@@ -59,7 +59,7 @@ class STFS(object):
         """ Takes either a filename to open or a file object (including StringIO) to parse """
         self.filename = filename
         if not fd:
-            self.fd = open(filename, 'r')
+            self.fd = open(filename, 'rb')
         else:
             self.fd = fd
         data = self.fd.read(4)
@@ -291,7 +291,7 @@ def extract_all(argv):
         if not s.allfiles[filename].isdirectory:
             print "Writing file %s" % filename
             try:
-                open("%s/%s" % (argv[2], filename), 'w').write(s.read_file(s.allfiles[filename]))
+                open("%s/%s" % (argv[2], filename), 'wb').write(s.read_file(s.allfiles[filename]))
             except Exception as e:
                 print e
                 print argv[2], filename
