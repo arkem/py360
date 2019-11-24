@@ -180,7 +180,7 @@ class STFS(object):
 
         if block_num >= 0xAA:
             block_adjust += ((block_num // 0xAA)) + 1 << self.table_size_shift
-        if block_num > 0x70E4:
+        if block_num >= 0x70E4:
             block_adjust += ((block_num // 0x70E4) + 1)<< self.table_size_shift
         return block_adjust + block_num
     
